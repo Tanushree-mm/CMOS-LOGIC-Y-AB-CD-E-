@@ -1,4 +1,4 @@
-# CMOS-LOGIC-Y-AB-CD-E-
+# CMOS-LOGIC Y=(AB+CD+E)'
 
 **OBJECTIVE**
 
