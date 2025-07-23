@@ -1,0 +1,107 @@
+
+#### **Step 1: Create New Library**
+
+* Open Cadence Virtuoso.
+* Go to: `File → New → Library`
+* Give it a name (e.g., `Lab3_CMOS_Logic`)
+* Attach to technology: `gpdk180`
+
+---
+
+#### **Step 2: Create New Cell View**
+
+* In Library Manager: `File → New → Cell View`
+* Cell name: `Boolean_CMOS`
+* Tool: `Virtuoso Schematic Editor`
+* View Name: `schematic`
+
+---
+
+#### **Step 3: Instantiate Devices**
+
+* Go to `Create → Instance`
+* Use the following from `gpdk180` library:
+
+  * NMOS: `Width = 6 µm`, `Length = 180 nm`
+  * PMOS: `Width = 8.85 µm`, `Length = 180 nm`
+* Arrange transistors according to the Boolean expression:
+
+  * Build **pull-down network** for `AB + CD + E`
+
+    * Series NMOS for `A` and `B`, `C` and `D`; all in parallel with `E`
+  * Build **pull-up network** as dual of pull-down
+
+    * Parallel PMOS for `A` and `B`, `C` and `D`; all in series with `E`
+* Add `VDD`, `GND`, inputs `A`, `B`, `C`, `D`, `E` and output `Y`.
+
+---
+
+#### **Step 4: Check & Save**
+
+* Go to `Design → Check and Save` to ensure no connection errors.
+
+---
+
+#### **Step 5: Create Symbol**
+
+* From schematic: `Create → Cellview → From Cellview`
+* Define pin placement.
+* Customize symbol if needed.
+
+---
+
+#### **Step 6: Create Testbench**
+
+* New Cell View: e.g., `Boolean_CMOS_tb`
+* Instantiate symbol from previous step.
+* Add:
+
+  * `vpulse` or `vpwl` sources for inputs `A`, `B`, `C`, `D`, `E`
+  * Load capacitor at output (e.g., 100 fF)
+  * `VDD = 1.8V` and `GND`
+
+---
+
+#### **Step 7: Setup Inputs**
+
+* Voltage Sources:
+
+  * A: Pulse, Period = 160 ns, Pulse Width = 80 ns
+  * B: Pulse, Period = 80 ns, Pulse Width = 40 ns
+  * C: Pulse, Period = 40 ns, Pulse Width = 20 ns
+  * D: Pulse, Period = 20 ns, Pulse Width = 10 ns
+  * E: Pulse, Period = 10 ns, Pulse Width = 5 ns
+
+---
+
+#### **Step 8: Launch ADE L**
+
+* From testbench: `Launch → ADE L`
+
+---
+
+#### **Step 9: Simulation Setup**
+
+* Choose **Simulator**: Spectre
+* Add Model Libraries (`gpdk180.scs`)
+* Setup **Transient Analysis**:
+
+  * `Analysis → Choose → Transient`
+  * Stop time: \~200 ns
+
+---
+
+#### **Step 10: Select Outputs**
+
+* `Outputs → Setup → From Design`
+* Select `A`, `B`, `C`, `D`, `E`, `Y` to plot
+
+---
+
+#### **Step 11: Run Simulation**
+
+* `Simulation → Netlist and Run`
+* Observe logic behavior of the expression.
+
+---
+
